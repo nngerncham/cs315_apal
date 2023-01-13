@@ -1,0 +1,12 @@
+*.aux
+*.fdb_latexmk
+*.synctex.gz
+*.fls
+*.log
+.DS_Store
+*.out
+*.snippets
+*.toc
+*.dvi
+*.pdf
+_minted-main
