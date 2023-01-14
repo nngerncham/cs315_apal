@@ -64,7 +64,8 @@
 % math and algo stuff
 \usepackage{amsmath, amsfonts, amsthm, amssymb}
 \usepackage{algorithmicx, mathtools, algorithm, algpseudocode}
-\newcommand{\floor}[1]{\lfloor #1 \rfloor}
+\newcommand{\floor}[1]{{\left\lfloor #1 \right\rfloor}}
+\newcommand{\ceil}[1]{{\left\lceil #1 \right\rceil}}
 
 % code
 \usepackage{verbatim}

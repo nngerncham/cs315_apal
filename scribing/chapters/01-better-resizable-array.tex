@@ -70,11 +70,11 @@ Additionally, the same property also simplifies the modulo operation as it can b
 \begingroup
 
 \begin{wrapfigure}{r}{0.4\textwidth}
-	\vspace*{-20pt}
+	\vspace*{-10pt}
 	\centering
 	\includegraphics[width=0.4\textwidth]{01/space.png}
 	\caption{Space usage of a HAT}
-	\vspace*{-20pt}
+	\vspace*{-30pt}
 \end{wrapfigure}
 
 Consider a HAT with size $N$ and an arbitrary $B$. We need $B$ \textit{slots} to be the Top array,
@@ -82,7 +82,7 @@ $N$ slots for the elements themselves, and at most another $B$ slots for the Lea
 yet. Therefore, the space usage of the HAT is $N + 2B$. Recall that $N = B^2$, we can also rewrite
 the space usage as $N + 2\sqrt{N} = N + O(\sqrt{N})$.
 
-\subsection*{Amortized Time Analysis for Expansion}
+\subsection*{Amortized Time Analysis}
 
 Consider a full HAT of size $N$ and some arbitrary $B$. For the sake of simplicity, let us assume
 that the memory allocation is magically instantaneous. This means that, on average, each append
@@ -101,5 +101,69 @@ This can then be rewritten in terms of $N$ and we will obtain.
 
 Therefore, the amortized cost per append operation would be constant time.
 \[ \frac{N}{(3/4)N} = \frac{4}{3} \in O(1) \]
+
+\endgroup
+
+\begin{tcolorbox}[title=Disclaimer]
+	The naming for the following sections are not based on the original papers. These are named
+	such that they are distinguishable from one another and makes sense and \textit{saves me 
+	from having to write optimal resizable arrays every time I mention it}.
+\end{tcolorbox}
+
+\begingroup
+
+\section{Fancier HAT (Brodnik et al., 1996)}
+
+While Sitarski's HAT idea is able to achieve a better space bound than a typical resizable array,
+any resize operation still takes $O(N)$ where $N$ is the capacity of the HAT before the resize.
+Brodnik et al.'s idea, however, proposes a data structure that is able to achieve a constant
+running time on expansion and shrinking operations.
+
+\subsection*{Structure}
+
+\begin{wrapfigure}[10]{L}{0.35\textwidth}
+	\centering
+	\includegraphics[width=0.35\textwidth]{01/basic-fancy-hat.png}
+	\caption{Fancy HAT with $B=4$}\label{basic-fancy-hat}
+\end{wrapfigure}
+
+Brodnik et al. first proposes a similar idea to Sitarski's HAT where the data structure keeps an 
+index block and many data blocks. The capacity of the data blocks ranges from 1 to $B$, and there 
+are $B$ data blocks being pointed to from the index block. Here, the $i$-th block has a capacity of
+$i$. This mean that the capacity of the entire data structure is $B(B+1)/2$. This is approximately
+$\Theta(\sqrt{N})$ where $N$ is the capacity of the entire data structure.
+
+\subsection*{Accessing an Element}
+
+The problem with this data structure is the index for the index block is computed by 
+\[ \ceil{\frac{\sqrt{8i + 1} - 1}{2}} \]
+which has to compute the square root. Even with Newton's method, the running time is still not
+constant, therefore making any access take non-constant time which doesn't improve on Sitarski's idea.
+
+\endgroup
+
+\begingroup
+
+\section{Super HAT (Brodnik et al., 1999)}
+
+\begin{wrapfigure}[16]{l}{0.4\textwidth}
+	\centering
+	\includegraphics[width=0.4\textwidth]{01/super-hat.png}
+	\caption{Super HAT}\label{super-hat-structure}
+\end{wrapfigure}
+
+\subsection*{Structure}
+
+The basic structure is similar to the Fancy HAT but the capacity of any data block is a power of 2.
+These data blocks are also clustered into \textbf{super blocks} with the following policies: two
+data blocks are in the same super block if they have the same size the $k$-th, each super block
+contains up to $2^\floor{k/2}$ data blocks, and each data block in each super block has a 
+capacity of $2^\ceil{k/2}$.
+
+\subsection*{Accessing an Element}
+
+Using the properties that come from super blocks, using bit operations for computing the index for
+the index block is now \textit{somehow} possible. Note that the index for the super block starts
+from 0, not 1.
 
 \endgroup
