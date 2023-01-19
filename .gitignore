@@ -10,3 +10,4 @@
 *.dvi
 *.pdf
 _minted-main
+.DS_Store
