@@ -1,6 +1,6 @@
 use crate::resizable_arr::ResizableArray;
 
-const DEFAULT_INIT_CAP: usize = 8;
+const DEFAULT_INIT_CAP: usize = 16;
 
 pub struct DoublingResizableArray<T> {
     cap: usize,
@@ -20,6 +20,10 @@ impl<T> DoublingResizableArray<T> {
 
 impl<T> ResizableArray<T> for DoublingResizableArray<T> where T: Copy {
     fn push_back(&mut self, e: T) {
+        if self.n == self.cap {
+            self.expand();
+        }
+
         self.arr.push(e);
     }
 
@@ -34,6 +38,7 @@ impl<T> ResizableArray<T> for DoublingResizableArray<T> where T: Copy {
         if self.n < self.cap / 4 {
             self.shrink();
         }
+
         return self.arr.pop().unwrap();
     }
 
