@@ -10,28 +10,41 @@ pub struct DoublingResizableArray<T> {
 
 impl<T> DoublingResizableArray<T> {
     pub fn new() -> Self {
-        return Self { 
+        return Self {
             cap: DEFAULT_INIT_CAP,
             n: 0,
             arr: Vec::with_capacity(DEFAULT_INIT_CAP),
-        }
+        };
+    }
+
+    pub fn get_arr(&self) -> &Vec<T> {
+        return &self.arr;
+    }
+
+    fn is_full(&self) -> bool {
+        return self.n == self.cap;
     }
 }
 
-impl<T> ResizableArray<T> for DoublingResizableArray<T> where T: Copy {
+impl<T> ResizableArray<T> for DoublingResizableArray<T>
+where
+    T: Copy,
+{
     fn push_back(&mut self, e: T) {
-        if self.n == self.cap {
+        if self.is_full() {
             self.expand();
         }
-
         self.arr.push(e);
+        self.n = self.n + 1;
     }
 
     fn expand(&mut self) {
         self.cap = self.cap * 2;
 
         let mut new_arr = Vec::<T>::with_capacity(self.cap);
-        new_arr.extend(self.arr.iter().copied());
+        for e in &self.arr {
+            new_arr.push(e.clone());
+        }
     }
 
     fn pop_back(&mut self) -> T {
@@ -39,6 +52,7 @@ impl<T> ResizableArray<T> for DoublingResizableArray<T> where T: Copy {
             self.shrink();
         }
 
+        self.n = self.n - 1;
         return self.arr.pop().unwrap();
     }
 

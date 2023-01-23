@@ -1,4 +1,7 @@
-pub trait ResizableArray<T> where T: Copy {
+pub trait ResizableArray<T>
+where
+    T: Copy,
+{
     fn push_back(&mut self, e: T);
     fn expand(&mut self);
 

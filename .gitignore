@@ -9,6 +9,8 @@
 *.toc
 *.dvi
 *.pdf
+*.csv
 _minted-main
 .DS_Store
 target
+.ipynb_checkpoints
