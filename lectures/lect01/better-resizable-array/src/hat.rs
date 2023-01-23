@@ -8,7 +8,10 @@ pub struct HATResizableArray<T> {
     top: Vec<Vec<T>>,
 }
 
-impl<T> HATResizableArray<T> {
+impl<T> HATResizableArray<T>
+where
+    T: Copy,
+{
     pub fn new() -> Self {
         let mut v = Vec::with_capacity(2 << DEFAULT_INIT_K);
         v.push(Vec::with_capacity(2 << DEFAULT_INIT_K));
@@ -27,25 +30,6 @@ impl<T> HATResizableArray<T> {
 
     pub fn get_top(&self) -> &Vec<Vec<T>> {
         return &self.top;
-    }
-}
-
-impl<T> ResizableArray<T> for HATResizableArray<T>
-where
-    T: Copy,
-{
-    fn push_back(&mut self, e: T) {
-        if self.is_full() {
-            self.expand();
-        }
-
-        let top_index = compute_top_idx(self.n, self.k);
-        if self.top.len() == top_index {
-            self.top.push(Vec::with_capacity(1 << self.k));
-        }
-
-        self.top[top_index].push(e);
-        self.n = self.n + 1;
     }
 
     fn expand(&mut self) {
@@ -67,6 +51,29 @@ where
         self.k = self.k + 1;
     }
 
+    fn shrink(&mut self) {
+        // TODO
+    }
+}
+
+impl<T> ResizableArray<T> for HATResizableArray<T>
+where
+    T: Copy,
+{
+    fn push_back(&mut self, e: T) {
+        if self.is_full() {
+            self.expand();
+        }
+
+        let top_index = compute_top_idx(self.n, self.k);
+        if self.top.len() == top_index {
+            self.top.push(Vec::with_capacity(1 << self.k));
+        }
+
+        self.top[top_index].push(e);
+        self.n = self.n + 1;
+    }
+
     fn pop_back(&mut self) -> T {
         let i = self.n - 1;
 
@@ -76,10 +83,6 @@ where
         let leaf = &self.top[top_index];
         self.n = self.n - 1;
         return leaf[leaf_index];
-    }
-
-    fn shrink(&mut self) {
-        // TODO
     }
 
     fn get(&self, i: usize) -> T {

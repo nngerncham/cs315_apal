@@ -8,7 +8,10 @@ pub struct DoublingResizableArray<T> {
     arr: Vec<T>,
 }
 
-impl<T> DoublingResizableArray<T> {
+impl<T> DoublingResizableArray<T>
+where
+    T: Clone,
+{
     pub fn new() -> Self {
         return Self {
             cap: DEFAULT_INIT_CAP,
@@ -17,12 +20,22 @@ impl<T> DoublingResizableArray<T> {
         };
     }
 
-    pub fn get_arr(&self) -> &Vec<T> {
-        return &self.arr;
-    }
-
     fn is_full(&self) -> bool {
         return self.n == self.cap;
+    }
+
+    fn expand(&mut self) {
+        self.cap = self.cap * 2;
+
+        let mut new_arr = Vec::<T>::with_capacity(self.cap);
+        for e in &self.arr {
+            new_arr.push(e.clone());
+        }
+    }
+
+    fn shrink(&mut self) {
+        self.cap = self.cap / 2;
+        self.arr.truncate(self.cap);
     }
 }
 
@@ -38,15 +51,6 @@ where
         self.n = self.n + 1;
     }
 
-    fn expand(&mut self) {
-        self.cap = self.cap * 2;
-
-        let mut new_arr = Vec::<T>::with_capacity(self.cap);
-        for e in &self.arr {
-            new_arr.push(e.clone());
-        }
-    }
-
     fn pop_back(&mut self) -> T {
         if self.n < self.cap / 4 {
             self.shrink();
@@ -54,11 +58,6 @@ where
 
         self.n = self.n - 1;
         return self.arr.pop().unwrap();
-    }
-
-    fn shrink(&mut self) {
-        self.cap = self.cap / 2;
-        self.arr.truncate(self.cap);
     }
 
     fn get(&self, i: usize) -> T {
