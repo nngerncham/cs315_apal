@@ -1,0 +1,66 @@
+\ProvidesPackage{nwstyle}
+
+% fonts
+\usepackage{libertine}
+\usepackage{libertinust1math}
+\usepackage[T1]{fontenc}
+\usepackage{inconsolata}
+\usepackage{xcolor}
+
+% margins and page no.
+\usepackage[a4paper, total={6in, 9in}]{geometry}
+\usepackage{nopageno}
+
+% headers
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\pagestyle{fancy}
+\fancyhf{}
+
+\rfoot{\footnotesize Page \thepage\ of \pageref{LastPage}}
+\renewcommand{\footrulewidth}{0.4pt}
+
+% links
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    urlcolor=blue
+}
+
+% paragraph
+\usepackage{multicol}
+\usepackage{float}
+
+% images
+\usepackage{graphicx}
+\graphicspath{{./graphics/}}
+\usepackage{wrapfig}
+\usepackage[export]{adjustbox}
+\usepackage{caption}
+\usepackage{subcaption}
+
+% diagrams
+\usepackage{tikz}
+
+% examples and blocks
+\usepackage{framed}
+
+% chapters
+\usepackage{titlesec, blindtext}
+\definecolor{gray75}{gray}{0.75}
+\newcommand{\hsp}{\hspace{20pt}}
+\titleformat{\chapter}[hang]{\Huge\bfseries}{\thechapter\hsp\textcolor{gray75}{|}\hsp}{0pt}{\Huge\bfseries}
+
+% math and algorithm stuff
+\usepackage{amsmath, amsfonts, amsthm, amssymb}
+\usepackage{algorithmicx, mathtools, algorithm, algpseudocode}
+
+% code
+\usepackage{verbatim}
+\usepackage{pygmentex}
+\usepackage{minted}
+\usemintedstyle{tango}
+
+% multi-file setup
+\usepackage{blindtext}
