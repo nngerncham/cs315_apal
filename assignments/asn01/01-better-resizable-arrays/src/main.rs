@@ -1,4 +1,3 @@
-mod alpha;
 mod doubling;
 mod hat;
 mod resizable_arr;
@@ -7,7 +6,6 @@ use csv::Writer;
 
 use crate::resizable_arr::ResizableArray;
 
-use crate::alpha::AlphaResizableArray;
 use crate::doubling::DoublingResizableArray;
 use crate::hat::HATResizableArray;
 
@@ -66,20 +64,7 @@ fn time_rd_access<A: ResizableArray<usize>>(lst: &A) -> Vec<u64> {
     time_diffs
 }
 
-fn time_overall() -> (Vec<u64>, Vec<u64>, Vec<u64>) {
-    let mut alpha_diffs = Vec::with_capacity(N);
-    for _ in 0..M {
-        unsafe {
-            let start = _rdtsc();
-            let mut lst = Vec::new();
-            for _ in 0..=N {
-                lst.push(random::<usize>());
-            }
-            let stop = _rdtsc();
-            alpha_diffs.push(stop - start);
-        }
-    }
-
+fn time_overall() -> (Vec<u64>, Vec<u64>) {
     let mut double_diffs = Vec::with_capacity(N);
     for _ in 0..M {
         unsafe {
@@ -106,7 +91,7 @@ fn time_overall() -> (Vec<u64>, Vec<u64>, Vec<u64>) {
         }
     }
 
-    (alpha_diffs, double_diffs, hat_diffs)
+    (double_diffs, hat_diffs)
 }
 
 
@@ -122,14 +107,9 @@ fn main() {
     let hget_latency = time_rd_access(&mut hat);
     let hscan_latency = time_scan(&mut hat);
 
-    let mut alpha: AlphaResizableArray<usize> = AlphaResizableArray::new();
-    let apush_latency = time_push(&mut alpha);
-    let aget_latency = time_rd_access(&mut alpha);
-    let ascan_latency = time_scan(&mut alpha);
-
 
     // repeated overall inserts
-    let (doverall_throughput, hoverall_throughput, aoverall_throughput) = time_overall();
+    let (doverall_throughput, hoverall_throughput) = time_overall();
 
 
     // writing results
@@ -144,10 +124,6 @@ fn main() {
         "hat_push",
         "hat_get",
         "hat_scan",
-
-        "alpha_push",
-        "alpha_get",
-        "alpha_scan",
     ]);
     for i in 0..=N {
         let _res = wtr.write_record(&[
@@ -159,10 +135,6 @@ fn main() {
             hpush_latency[i].to_string(),
             hget_latency[i].to_string(),
             hscan_latency[i].to_string(),
-
-            apush_latency[i].to_string(),
-            aget_latency[i].to_string(),
-            ascan_latency[i].to_string(),
         ]);
     }
 
@@ -172,14 +144,12 @@ fn main() {
         "i",
         "double_overall",
         "hat_overall",
-        "alpha_overall",
     ]);
     for i in 0..M {
         let _res = wtr.write_record(&[
             i.to_string(),
             doverall_throughput[i].to_string(),
             hoverall_throughput[i].to_string(),
-            aoverall_throughput[i].to_string(),
         ]);
     }
 }
