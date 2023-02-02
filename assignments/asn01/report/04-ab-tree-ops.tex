@@ -1,0 +1,312 @@
+\section{$(a, b)$ Tree Operations}
+
+\subsection{Insertion}
+
+Starting with an empty tree, keys are inserted as follows.
+\[ 733, 704, 608, 846, 309, 269, 55, 745, 548, 449, 513, 210, 795, 656, 262 \]
+
+\subsubsection*{Inserting $733$}
+\begin{center}
+	\begin{tikzpicture}[every node/.style={draw, rounded rectangle}]
+		\node[rounded rectangle] {$733$};
+	\end{tikzpicture}
+\end{center}
+
+\subsubsection*{Inserting $703$}
+\begin{center}
+	\begin{tikzpicture}[every node/.style={draw, rounded rectangle}]
+		\node[rounded rectangle] {$703:733$};
+	\end{tikzpicture}
+\end{center}
+
+\subsubsection*{Inserting $608$}
+\begin{center}
+	\begin{tikzpicture}[every node/.style={draw, rounded rectangle}, level distance=8mm]
+		\node[rounded rectangle] {$703$}
+			child { node[rounded rectangle] (rootl) {$608$} }
+			child { node[rounded rectangle] (rootr) {$733$} };
+	\end{tikzpicture}
+\end{center}
+
+\subsubsection*{Inserting $846$}
+\begin{center}
+	\begin{tikzpicture}[every node/.style={draw, rounded rectangle}, level distance=8mm]
+		\node[rounded rectangle] {$703$}
+			child { node[rounded rectangle] {$608$} }
+			child { node[rounded rectangle] {$733:846$} };
+	\end{tikzpicture}
+\end{center}
+
+\subsubsection*{Inserting $309$}
+\begin{center}
+	\begin{tikzpicture}[every node/.style={draw, rounded rectangle}, level distance=8mm, sibling distance=20mm]
+		\node[rounded rectangle] {$703$}
+			child { node[rounded rectangle] {$309:608$} }
+			child { node[rounded rectangle] {$733:846$} };
+	\end{tikzpicture}
+\end{center}
+
+\subsubsection*{Inserting $269$}
+\begin{center}
+	\begin{tikzpicture}[every node/.style={draw, rounded rectangle}, level distance=8mm, sibling distance=20mm]
+		\node[rounded rectangle] {$309:703$}
+			child { node[rounded rectangle] {$269$} }
+			child { node[rounded rectangle] {$608$} }
+			child { node[rounded rectangle] {$733:846$} };
+	\end{tikzpicture}
+\end{center}
+
+\subsubsection*{Inserting $55$}
+\begin{center}
+	\begin{tikzpicture}[every node/.style={draw, rounded rectangle}, level distance=8mm, sibling distance=20mm]
+		\node[rounded rectangle] {$309:703$}
+			child { node[rounded rectangle] {$55:269$} }
+			child { node[rounded rectangle] {$608$} }
+			child { node[rounded rectangle] {$733:846$} };
+	\end{tikzpicture}
+\end{center}
+
+\subsubsection*{Inserting $745$}
+\begin{center}
+	\begin{tikzpicture}[every node/.style={draw, rounded rectangle},
+						level distance=8mm,
+						level 1/.style={sibling distance=35mm},
+						level 2/.style={sibling distance=20mm}
+					   ]
+			\node[rounded rectangle] {$703$}
+			child { node[rounded rectangle] {$309$} 
+				child { node[rounded rectangle] {$55:269$} }
+				child { node[rounded rectangle] {$608$} }
+			}
+			child { node[rounded rectangle] {$745$} 
+				child { node[rounded rectangle] {$733$} }
+				child { node[rounded rectangle] {$846$} }
+			};
+	\end{tikzpicture}
+\end{center}
+
+\subsubsection*{Inserting $548$}
+\begin{center}
+	\begin{tikzpicture}[every node/.style={draw, rounded rectangle},
+						level distance=8mm,
+						level 1/.style={sibling distance=35mm},
+						level 2/.style={sibling distance=20mm}
+					   ]
+			\node[rounded rectangle] {$703$}
+			child { node[rounded rectangle] {$309$} 
+				child { node[rounded rectangle] {$55:269$} }
+				child { node[rounded rectangle] {$548:608$} }
+			}
+			child { node[rounded rectangle] {$745$} 
+				child { node[rounded rectangle] {$733$} }
+				child { node[rounded rectangle] {$846$} }
+			};
+	\end{tikzpicture}
+\end{center}
+
+\subsubsection*{Inserting $449$}
+\begin{center}
+	\begin{tikzpicture}[every node/.style={draw, rounded rectangle},
+						level distance=8mm,
+						level 1/.style={sibling distance=35mm},
+						level 2/.style={sibling distance=15mm}
+					   ]
+			\node[rounded rectangle] {$703$}
+			child { node[rounded rectangle] {$309:548$} 
+				child { node[rounded rectangle] {$55:269$} }
+				child { node[rounded rectangle] {$449$} }
+				child { node[rounded rectangle] {$608$} }
+			}
+			child { node[rounded rectangle] {$745$} 
+				child { node[rounded rectangle] {$733$} }
+				child { node[rounded rectangle] {$846$} }
+			};
+	\end{tikzpicture}
+\end{center}
+
+\subsubsection*{Inserting $513$}
+\begin{center}
+	\begin{tikzpicture}[every node/.style={draw, rounded rectangle},
+						level distance=8mm,
+						level 1/.style={sibling distance=40mm},
+						level 2/.style={sibling distance=20mm}
+					   ]
+			\node[rounded rectangle] {$703$}
+			child { node[rounded rectangle] {$309:548$} 
+				child { node[rounded rectangle] {$55:269$} }
+				child { node[rounded rectangle] {$449:513$} }
+				child { node[rounded rectangle] {$608$} }
+			}
+			child { node[rounded rectangle] {$745$} 
+				child { node[rounded rectangle] {$733$} }
+				child { node[rounded rectangle] {$846$} }
+			};
+	\end{tikzpicture}
+\end{center}
+
+\subsubsection*{Inserting $210$}
+\begin{center}
+	\begin{tikzpicture}[every node/.style={draw, rounded rectangle},
+						level distance=8mm,
+						level 1/.style={sibling distance=35mm},
+						level 2/.style={sibling distance=15mm}
+					   ]
+			\node[rounded rectangle] {$309:703$}
+			child { node[rounded rectangle] {$210$} 
+				child { node[rounded rectangle] {$55$} }
+				child { node[rounded rectangle] {$269$} }
+			}
+			child { node[rounded rectangle] {$548$} 
+				child { node[rounded rectangle] {$449:513$} }
+				child { node[rounded rectangle] {$608$} }
+			}
+			child { node[rounded rectangle] {$745$} 
+				child { node[rounded rectangle] {$733$} }
+				child { node[rounded rectangle] {$846$} }
+			};
+	\end{tikzpicture}
+\end{center}
+
+\subsubsection*{Inserting $656$}
+\begin{center}
+	\begin{tikzpicture}[every node/.style={draw, rounded rectangle},
+						level distance=8mm,
+						level 1/.style={sibling distance=35mm},
+						level 2/.style={sibling distance=15mm}
+					   ]
+			\node[rounded rectangle] {$309:703$}
+			child { node[rounded rectangle] {$210$} 
+				child { node[rounded rectangle] {$55$} }
+				child { node[rounded rectangle] {$269$} }
+			}
+			child { node[rounded rectangle] {$548$} 
+				child { node[rounded rectangle] {$449:513$} }
+				child { node[rounded rectangle] {$608$} }
+			}
+			child { node[rounded rectangle] {$745$} 
+				child { node[rounded rectangle] {$733$} }
+				child { node[rounded rectangle] {$795:846$} }
+			};
+	\end{tikzpicture}
+\end{center}
+
+\subsubsection*{Inserting $795$}
+\begin{center}
+	\begin{tikzpicture}[every node/.style={draw, rounded rectangle},
+						level distance=8mm,
+						level 1/.style={sibling distance=40mm},
+						level 2/.style={sibling distance=20mm}
+					   ]
+			\node[rounded rectangle] {$309:703$}
+			child { node[rounded rectangle] {$210$} 
+				child { node[rounded rectangle] {$55$} }
+				child { node[rounded rectangle] {$269$} }
+			}
+			child { node[rounded rectangle] {$548$} 
+				child { node[rounded rectangle] {$449:513$} }
+				child { node[rounded rectangle] {$608:656$} }
+			}
+			child { node[rounded rectangle] {$745$} 
+				child { node[rounded rectangle] {$733$} }
+				child { node[rounded rectangle] {$795:846$} }
+			};
+	\end{tikzpicture}
+\end{center}
+
+\subsubsection*{Inserting $262$}
+\begin{center}
+	\begin{tikzpicture}[every node/.style={draw, rounded rectangle},
+						level distance=8mm,
+						level 1/.style={sibling distance=40mm},
+						level 2/.style={sibling distance=20mm}
+					   ]
+			\node[rounded rectangle] {$309:703$}
+			child { node[rounded rectangle] {$210$} 
+				child { node[rounded rectangle] {$55$} }
+				child { node[rounded rectangle] {$262:269$} }
+			}
+			child { node[rounded rectangle] {$548$} 
+				child { node[rounded rectangle] {$449:513$} }
+				child { node[rounded rectangle] {$608:656$} }
+			}
+			child { node[rounded rectangle] {$745$} 
+				child { node[rounded rectangle] {$733$} }
+				child { node[rounded rectangle] {$795:846$} }
+			};
+	\end{tikzpicture}
+\end{center}
+
+\subsection{Deletion}
+
+From the tree above, 309 is deleted with the following steps.
+
+First, we kick out 309 from the root node.
+\begin{center}
+	\begin{tikzpicture}[every node/.style={draw, rounded rectangle},
+						level distance=8mm,
+						level 1/.style={sibling distance=40mm},
+						level 2/.style={sibling distance=20mm}
+					   ]
+		   \node[rounded rectangle, red] {$(!!):703$}
+			child { node[rounded rectangle] {$210$} 
+				child { node[rounded rectangle] {$55$} }
+				child { node[rounded rectangle] {$262:269$} }
+			}
+			child { node[rounded rectangle] {$548$} 
+				child { node[rounded rectangle] {$449:513$} }
+				child { node[rounded rectangle] {$608:656$} }
+			}
+			child { node[rounded rectangle] {$745$} 
+				child { node[rounded rectangle] {$733$} }
+				child { node[rounded rectangle] {$795:846$} }
+			};
+	\end{tikzpicture}
+\end{center}
+
+Then, we pick $548$ to be the successor, steal it out of its old node, then bring it up to replace the empty slot.
+\begin{center}
+	\begin{tikzpicture}[every node/.style={draw, rounded rectangle},
+						level distance=8mm,
+						level 1/.style={sibling distance=40mm},
+						level 2/.style={sibling distance=20mm}
+					   ]
+		   \node[rounded rectangle] {$548:703$}
+			child { node[rounded rectangle] {$210$} 
+				child { node[rounded rectangle] {$55$} }
+				child { node[rounded rectangle] {$262:269$} }
+			}
+			child { node[rounded rectangle, red] {$(!!)$} 
+				child { node[rounded rectangle] {$449:513$} }
+				child { node[rounded rectangle] {$608:656$} }
+			}
+			child { node[rounded rectangle] {$745$} 
+				child { node[rounded rectangle] {$733$} }
+				child { node[rounded rectangle] {$795:846$} }
+			};
+	\end{tikzpicture}
+\end{center}
+
+Finally, we $608$ to be the successor, steal it out of its old node, then bring it up to replace the empty slot.
+\begin{center}
+	\begin{tikzpicture}[every node/.style={draw, rounded rectangle},
+						level distance=8mm,
+						level 1/.style={sibling distance=40mm},
+						level 2/.style={sibling distance=20mm}
+					   ]
+		   \node[rounded rectangle] {$548:703$}
+			child { node[rounded rectangle] {$210$} 
+				child { node[rounded rectangle] {$55$} }
+				child { node[rounded rectangle] {$262:269$} }
+			}
+			child { node[rounded rectangle] {$608$} 
+				child { node[rounded rectangle] {$449:513$} }
+				child { node[rounded rectangle] {$656$} }
+			}
+			child { node[rounded rectangle] {$745$} 
+				child { node[rounded rectangle] {$733$} }
+				child { node[rounded rectangle] {$795:846$} }
+			};
+	\end{tikzpicture}
+\end{center}
+
+Since $608$ was in a leaf, the deletion terminates here.
