@@ -10,4 +10,4 @@ fmt:
 	clang-format *.cpp -i
 
 clean:
-	rm -rf *.o
+	rm -rf *.o *.out
