@@ -84,6 +84,6 @@ The interesting observation we can make is that the average throughput for GE is
 
 It is clear to see that on average, both data structures perform roughly the same. However, due to the implementation overhead of the HAT, I can see why most (if not all) programming languages are not using it. The only clear advantage the HAT has over GE is that it wastes less memory space and resizes less often but that also comes with its own problems since the data structure also has to allocate memory more often since the HAT is essentially a dynamically-allocated matrix.
 
-I would like to point out that the fact that \mintinline{rust}{Vec} being used as the `primitive array' used for implementing both data structures is itself a resizable array, possibly leading to some performance overhead of its own. This could have made the test results less accurate. So, if I have some extra time before the submission, I will come back and try to implement this in C to see if manual memory management will have any effect on the latency.
+I would like to point out that the fact that \mintinline{rust}{Vec} being used as the `primitive array' used for implementing both data structures is itself a resizable array, possibly leading to some performance overhead of its own. This could have made the test results less accurate.
 
 \endgroup
