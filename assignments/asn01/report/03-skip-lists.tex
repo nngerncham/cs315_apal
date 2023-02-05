@@ -2,9 +2,56 @@
 
 \subsection{Skip List vs. Ordered Map}
 
+\begin{tcolorbox}[title=Disclaimer]
+	The implementation of the skip list is nowhere near the level of polish the built-in ordered map has. Thus, it is expected to perform worse. (I'm just not motivated enough to learn C++) Thus, I think this portion will be more like a study of the pattern of the latency as more elements are added to it in the skip list. The implementation of the skip list can be found \href{https://github.com/nngerncham/cs315_apal/tree/main/assignments/asn01/03-skip-list}{here}.
+\end{tcolorbox}
+
+
 \subsubsection{Insert Latency}
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[width=0.9\textwidth]{03-insert-latencies.png}
+		\caption{Insert latency of a C++ built-in ordered map and a skip-list}
+		\label{fig:03-insert-latency}
+	\end{center}
+\end{figure}
+
+From some inspection of my own code, I've come to a realization that the insertion method is very poorly optimized as it needs to go through each level at least half the time in order to insert the new node in, making its performance horrendous. This doesn't need analysis, \textit{this needs to be rewritten} (but I'm out of motivation).
+
+\begingroup
+
 \subsubsection{Search Latency}
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[width=0.9\textwidth]{03-search-latencies}
+		\caption{Search (get) latency of a C++ built-in ordered map and a skip-list}
+		\label{fig:03-search-latency}
+	\end{center}
+\end{figure}
+
+\begin{wrapfigure}{l}{0.4\textwidth}
+	\centering
+	\includegraphics[width=0.4\textwidth]{03-lecture-note-sl.png}
+	\caption{Skip list diagram from lecture note}
+\end{wrapfigure}
+
+Here is an interesting case of \textit{I'm not sure what is going on}.
+However, we might be able to learn something about how the skip list search works since there is a pattern in the latency.
+
+From the plot, we can infer that the access pattern is as follows. There are some elements that is reachable from the top level, so it takes very minimal time to reach. Then, there are roughly about the same number of elements that are reachable from the second highest level. This pattern continues on to form a staircase-like structure which what we have observed from the plot. This coincides with the visualization of the skip list seen in class and the original paper.
+
+\endgroup
+
 \subsubsection{Delete Latency}
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[width=0.9\textwidth]{03-delete-latencies.png}
+		\caption{Delete latency of a C++ built-in ordered map and a skip-list}
+		\label{fig:03-delete-latency}
+	\end{center}
+\end{figure}
+
+Here is the only case that the skip list `outperforms' the ordered map, but that could be simply left to the margin of error in latency measurement. Assuming that the ordered map is implemented with a balanced binary search tree, the running time should be the same as in both data structure algorithm-wise as they, in the worst case, need to go through every level of the tree/list. Therefore, it is expected that they perform roughly about the same.
 
 \subsection{Better Search Algorithm}
 

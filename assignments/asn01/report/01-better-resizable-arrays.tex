@@ -1,16 +1,20 @@
-\section{Resizable Arrays}
+\section{Resizable Arrays Latencies}
 
-\subsection{Methodology}
+\begin{tcolorbox}
+	The implementation of the geometric expansion array and HAT can be found \href{https://github.com/nngerncham/cs315_apal/tree/main/assignments/asn01/01-better-resizable-arrays}{here}.
+\end{tcolorbox}
 
-First, a hashed array tree (HAT) and a resizable array using geometric expansion (GE) data structures are implemented using Rust's \mintinline{rust}{Vec} to act as the `primitive' array. To ensure that the \mintinline{rust}{Vec} will not have to do its own resizing, they are always initialized using \mintinline{rust}{Vec::with_capacity(_)} so they always have an initial capacity that is decided by me. Both data structures implement the methods \mintinline{rust}{push_back(e)} for appending element \mintinline{rust}{e} to the end the array, \mintinline{rust}{get(i)} for accessing the element at index \mintinline{rust}{i}, and an internal \mintinline{rust}{expand()} that is used for expanding when full. The expansion for HAT is implemented according to Sitarski's paper from 1996.
+%\subsection{Methodology}
 
-Once both data structures are implemented, $N = 2^{20} \approx 1,000,000$ elements are appended and measured for latency. The assembly instruction \mintinline{asm}{rdtsc} is used to precisely measure the latency between the start of an append until the end. Once the elements are appended, both data structures are accessed at random indices repeatedly and measured for latency. The indices are randomized independently of each other. Once finished, both data structures are then scanned from left to right and measured for latency. Finally, to measure the overall throughput, a new instance of each data structure created and $N$ elements are then appended to them. The \textit{timer} starts before the data structure is created and stops after everything has been appended. This is repeated $M = 100$ times and recorded.
+%First, a hashed array tree (HAT) and a resizable array using geometric expansion (GE) data structures are implemented using Rust's \mintinline{rust}{Vec} to act as the `primitive' array. To ensure that the \mintinline{rust}{Vec} will not have to do its own resizing, they are always initialized using \mintinline{rust}{Vec::with_capacity(_)} so they always have an initial capacity that is decided by me. Both data structures implement the methods \mintinline{rust}{push_back(e)} for appending element \mintinline{rust}{e} to the end the array, \mintinline{rust}{get(i)} for accessing the element at index \mintinline{rust}{i}, and an internal \mintinline{rust}{expand()} that is used for expanding when full. The expansion for HAT is implemented according to Sitarski's paper from 1996.
 
-\subsection{Results}
+%Once both data structures are implemented, $N = 2^{20} \approx 1,000,000$ elements are appended and measured for latency. The assembly instruction \mintinline{asm}{rdtsc} is used to precisely measure the latency between the start of an append until the end. Once the elements are appended, both data structures are accessed at random indices repeatedly and measured for latency. The indices are randomized independently of each other. Once finished, both data structures are then scanned from left to right and measured for latency. Finally, to measure the overall throughput, a new instance of each data structure created and $N$ elements are then appended to them. The \textit{timer} starts before the data structure is created and stops after everything has been appended. This is repeated $M = 100$ times and recorded.
+
+%\subsection{Results}
 
 \begingroup
 
-\subsubsection{Append Latency}
+\subsection{Append Latency}
 
 \begin{figure}[H]
 	\begin{center}
@@ -26,7 +30,7 @@ From the axes themselves, it seems like HATs take significantly longer for each 
 
 \begingroup
 
-\subsubsection{Access Latency}
+\subsection{Access Latency}
 
 \begin{figure}[H]
 	\begin{center}
@@ -42,7 +46,7 @@ From the figure, there seems to be no clear difference in the pattern of access 
 
 \begingroup
 
-\subsubsection{Scan Throughput}
+\subsection{Scan Throughput}
 
 \begin{figure}[H]
 	\begin{center}
@@ -58,7 +62,7 @@ Similar to random access latencies, scanning through both data structures seems 
 
 \begingroup
 
-\subsubsection{Overall Throughput}
+\subsection{Overall Throughput}
 
 \begin{figure}[H]
 	\begin{center}
