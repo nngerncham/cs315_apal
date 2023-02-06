@@ -14,6 +14,8 @@ The amount of memory required for one key-value pair would be 64 bits or 8 bytes
 
 Assume that the B-Tree is storing a pair of pointers for key and value and recall that a modern computer's cache line size is typically 32, 64, or 128 bytes. This means that we would be able to perfectly fit 4, 8, 16 pairs of keys and values into a single cache line for fastest access respectively. Therefore, the optimal value for $b$ would be either 4, 8, or 16 based on the these assumptions and the size of the cache line respectively.
 
+As for the space usage, an ordered-map and a B-tree should take up roughly the same amount of space since both data structures keep roughly the same data (key, value, pointer to child) just grouped differently (one key-value pair per node or many key-value pairs per node). However, the B-tree should theoretically run faster since there should be less levels and the search in node is at most $b$ which is `constant' since it's pre-defined and doesn't change with the size of the tree.
+
 \subsection{B-Tree vs. Ordered Map}
 
 On the testing machine, the best performance comes from when $b = 18$ which is rather close to the estimate for the optimal $b$ when the cache line is 128 bytes from above. However, the performance is still very lacking compared to a built-in ordered map in C++ as the B-tree (with poor implementation) is approximately around \textit{7-12 times slower than the built-in ordered map}. (Maybe I just write bad code, which is pretty unfortunate.) Below are the results from the experiments.
