@@ -1,17 +1,22 @@
 \section{B-Tree}
 
+\begin{tcolorbox}
+	The implementations used for this task can be found \href{https://github.com/nngerncham/cs315_apal/tree/main/assignments/asn01/05-btree}{here}.
+\end{tcolorbox}
+
 \subsection{Optimal $b$}
 
-Since we know that B-Trees play well with memory hierarchy, we want to be able to perfectly fit a node into a cache block for fast access.
+In order to make the B-tree as fast as it can be, we want to minimize cache misses. This can be done by making sure that at least searches within the same node doesn't require extra load instructions. Thus, we want to be able to perfectly fit a node into a cache block for fast access.
 In general, $b$ should be based on the size of the key-value pair when stored in memory especially if they could have a variety of sizes.
-However, consider the case where both the key and the value are pointers or a reference type (similar to in Java).
-The amount of memory required for one key-value pair would be 128 bits or 16 bytes on a modern 64-bit machine.
+However, consider the case where both the key and the value are integers or \mintinline{c++}{int} for the sake of simplicity.
+The size can then be interchanged for data types as well.
+The amount of memory required for one key-value pair would be 64 bits or 8 bytes on a modern 64-bit machine.
 
-Assume that the B-Tree is storing a pair of pointers for key and value and recall that a modern computer's cache line size is typically 64 bytes. This means that we would be able to perfectly fit 4 pairs of keys and values into a single cache line for fastest access. Therefore, the optimal value for $b$ would be 4 based on the these assumptions. Note that this $b$ would go up as the size of the key-value pair goes down, but $b = 4$ should be a good baseline.
+Assume that the B-Tree is storing a pair of pointers for key and value and recall that a modern computer's cache line size is typically 32, 64, or 128 bytes. This means that we would be able to perfectly fit 4, 8, 16 pairs of keys and values into a single cache line for fastest access respectively. Therefore, the optimal value for $b$ would be either 4, 8, or 16 based on the these assumptions and the size of the cache line respectively.
 
 \subsection{B-Tree vs. Ordered Map}
 
-On the testing machine, the best performance comes from when $b = 18$. However, the performance is still very lacking compared to a built-in ordered map in C++ as the B-tree (with poor implementation) is approximately around \textit{7-12 times slower than the built-in ordered map}. Maybe I just write bad code. Below are the results from the experiments.
+On the testing machine, the best performance comes from when $b = 18$ which is rather close to the estimate for the optimal $b$ when the cache line is 128 bytes from above. However, the performance is still very lacking compared to a built-in ordered map in C++ as the B-tree (with poor implementation) is approximately around \textit{7-12 times slower than the built-in ordered map}. (Maybe I just write bad code, which is pretty unfortunate.) Below are the results from the experiments.
 
 \subsubsection{Results}
 

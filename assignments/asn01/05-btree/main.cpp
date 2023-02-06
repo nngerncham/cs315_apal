@@ -40,10 +40,12 @@ int main(int argc, char *argv[]) {
             print_result(i, "b_tree", "insert", begin, end);
         else
             std::cout << i << " was inserted\n";
+	}
 
-        begin = __rdtsc();
+	for (int i = 1; i <= N; i++) {
+        ullong begin = __rdtsc();
 		ordered_map.insert(std::pair<int, int>(i, i));
-        end = __rdtsc();
+        ullong end = __rdtsc();
         if (is_test)
             print_result(i, "ordered_map", "insert", begin, end);
     }
@@ -62,10 +64,12 @@ int main(int argc, char *argv[]) {
             else
                 std::cout << i << ": not found" << std::endl;
         }
+	}
 
-        begin = __rdtsc();
+	for (int i = 1; i <= N; i++) {
+        ullong begin = __rdtsc();
 		ordered_map[i];
-        end = __rdtsc();
+        ullong end = __rdtsc();
         if (is_test)
             print_result(i, "ordered_map", "search", begin, end);
     }
