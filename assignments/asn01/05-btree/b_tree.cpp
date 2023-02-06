@@ -6,8 +6,7 @@
 #include <string>
 #include <vector>
 
-#define B 4
-#define A 2
+#define B 18
 
 class Node {
   public:
@@ -154,8 +153,6 @@ class BTree {
             root = tmp;
         }
     }
-
-    void remove(int key) {}
 
     std::optional<int> get(int key) {
 		if (root->kv_pairs.empty())

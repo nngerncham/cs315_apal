@@ -11,4 +11,26 @@ Assume that the B-Tree is storing a pair of pointers for key and value and recal
 
 \subsection{B-Tree vs. Ordered Map}
 
-I have tried to implement a B-Tree but it \textit{didn't work out quite so well}. So, there is no experiments done to compare the performance between the two for now.
+On the testing machine, the best performance comes from when $b = 18$. However, the performance is still very lacking compared to a built-in ordered map in C++ as the B-tree (with poor implementation) is approximately around \textit{7-12 times slower than the built-in ordered map}. Maybe I just write bad code. Below are the results from the experiments.
+
+\subsubsection{Results}
+
+\subsubsection*{Insertion}
+
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[width=0.9\textwidth]{05-insert-latencies.png}
+		\caption{Insert latency of a C++ built-in ordered map and a B-tree}
+		\label{fig:05-insert-latency}
+	\end{center}
+\end{figure}
+
+\subsubsection*{Search}
+
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[width=0.9\textwidth]{05-insert-latencies.png}
+		\caption{Search latency of a C++ built-in ordered map and a B-tree}
+		\label{fig:05-search-latency}
+	\end{center}
+\end{figure}
