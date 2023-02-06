@@ -1,0 +1,14 @@
+\section{B-Tree}
+
+\subsection{Optimal $b$}
+
+Since we know that B-Trees play well with memory hierarchy, we want to be able to perfectly fit a node into a cache block for fast access.
+In general, $b$ should be based on the size of the key-value pair when stored in memory especially if they could have a variety of sizes.
+However, consider the case where both the key and the value are pointers or a reference type (similar to in Java).
+The amount of memory required for one key-value pair would be 128 bits or 16 bytes on a modern 64-bit machine.
+
+Assume that the B-Tree is storing a pair of pointers for key and value and recall that a modern computer's cache line size is typically 64 bytes. This means that we would be able to perfectly fit 4 pairs of keys and values into a single cache line for fastest access. Therefore, the optimal value for $b$ would be 4 based on the these assumptions. Note that this $b$ would go up as the size of the key-value pair goes down, but $b = 4$ should be a good baseline.
+
+\subsection{B-Tree vs. Ordered Map}
+
+I have tried to implement a B-Tree but it \textit{didn't work out quite so well}. So, there is no experiments done to compare the performance between the two for now.
