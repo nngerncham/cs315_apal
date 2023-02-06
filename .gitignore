@@ -14,3 +14,5 @@ _minted-main
 .DS_Store
 target
 .ipynb_checkpoints
+*.o
+*.out
