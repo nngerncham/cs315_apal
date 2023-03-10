@@ -1,0 +1,36 @@
+\documentclass{article}
+\usepackage{nwstyle}
+
+\lhead{\footnotesize \parbox{11cm}{Assignment 1}}
+\rhead{\footnotesize ICCS315: Applied Algorithms}
+
+\author{Nawat Ngerncham}
+\title{Term Project Proposal}
+
+\begin{document}
+\maketitle
+
+\section{Introduction}
+
+Purely functional data structures are becoming more and more common as they are generally safer for parallelism and such. However, the fact that the functional style prohibits any mutation means that it could become very costly to update as the data structure becomes more and more complex. For example, in order to insert an element into a purely functional BST, the full path of the insertion must be copied. Thus, this project aims to answer a couple questions: 
+
+\begin{enumerate}
+	\item Does the restrictions imposed by the functional style hurt the performance of an $(a, b)$ tree?
+	\item In a purely functional $(a, b)$ tree, what would be good values for $a$ and $b$?
+\end{enumerate}
+
+The performance will be measured empirically to see how each version performs as an ordered map and as a representation of a sequence.
+
+\section{To-dos}
+
+\begin{itemize}
+	\item Implement an $(a, b)$ tree in an imperative and purely functional style such that $a$ and $b$ can be easily modified
+	\item Compare the performance of both versions
+	\item Find the \textit{theoretical best (if possible)} for the values of $a$ and $b$ for the purely functional style and test them out
+\end{itemize}
+
+\section{Possible extension}
+
+On the off chance that I end up with some extra time on hand, I would like to also look into how parallelism affects the performance of these trees since one of the strongest advantage non-mutating data structures have over mutating one is in concurrent use cases. However, no idea how I would look into them for now.
+
+\end{document}
