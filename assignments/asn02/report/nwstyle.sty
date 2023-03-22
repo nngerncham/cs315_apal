@@ -1,0 +1,73 @@
+\ProvidesPackage{nwstyle}
+
+% fonts
+%\usepackage{libertine}
+\usepackage{gfsartemisia-euler}
+\usepackage[T1]{fontenc}
+\usepackage{inconsolata}
+\usepackage{xcolor}
+
+% margins and page no.
+\usepackage[a4paper, total={6in, 9in}]{geometry}
+\usepackage{nopageno}
+
+% headers
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\pagestyle{fancy}
+\fancyhf{}
+
+\rfoot{\footnotesize Page \thepage\ of \pageref{LastPage}}
+\renewcommand{\footrulewidth}{0.4pt}
+
+% links
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    urlcolor=blue
+}
+
+% paragraph
+\usepackage{multicol}
+\usepackage{float}
+\usepackage{tcolorbox}
+
+% images
+\usepackage{graphicx}
+\graphicspath{{./graphics/}}
+\usepackage{wrapfig}
+\usepackage[export]{adjustbox}
+\usepackage{caption}
+\usepackage{subcaption}
+
+% diagrams
+\usepackage{tikz}
+\usetikzlibrary{shapes.misc}
+
+% examples and blocks
+\usepackage{framed}
+
+% chapters
+\usepackage{titlesec, blindtext}
+\definecolor{gray75}{gray}{0.75}
+\newcommand{\hsp}{\hspace{20pt}}
+\titleformat{\chapter}[hang]{\Huge\bfseries}{\thechapter\hsp\textcolor{gray75}{|}\hsp}{0pt}{\Huge\bfseries}
+
+% math and algorithm stuff
+\usepackage{amsmath, amsfonts, amsthm, amssymb}
+\usepackage{algorithmicx, mathtools, algorithm, algpseudocode}
+
+% probability-related commands
+\newcommand{\ex}[1]{\mathbf{E}\left[#1\right]}
+\newcommand{\pr}[1]{\mathbf{Pr}\left[#1\right]}
+\newcommand{\var}[1]{\mathbf{Var}\left[#1\right]}
+
+% code
+\usepackage{verbatim}
+\usepackage{pygmentex}
+\usepackage{minted}
+\usemintedstyle{tango}
+
+% multi-file setup
+\usepackage{blindtext}

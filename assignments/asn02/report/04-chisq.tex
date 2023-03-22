@@ -1,0 +1,39 @@
+\chapter{$\chi^2$ with $n$ degrees of freedom}
+
+\begin{tcolorbox}[title=Disclaimer]
+	I forgot about $\chi^2$ distribution and got some help from \href{https://online.stat.psu.edu/stat414/book/export/html/784}{here}.
+\end{tcolorbox}
+
+\section{$\ex{\chi_n^2} = n$}
+
+Consider the following.
+
+\begin{equation}
+\begin{aligned}
+	\chi^2_n &= \sum_{i=1}^n X_i^2 \\
+	\iff \ex{\chi^2_n} &= \ex{\sum_{i=1}^n X_i^2} \\
+	\iff \ex{\chi^2_n} &= \sum_{i=1}^n \ex{X_i^2} && \text{by linearity of expectation}
+\end{aligned}
+\end{equation}
+
+Since we want to show that $\ex{\chi^2_n} = n$, it suffices to show that $\ex{X_i^2} = 1$ for $i = 1, 2, \ldots, n$ in order to show that their sum is $n$. Consider the definition of variance.
+
+\begin{equation}
+\begin{aligned}
+	\var{X} &= \ex{X^2} - (\ex{X})^2 \\
+	1 &= \ex{X^2} - 0^2 \\
+	\ex{X^2} &= 1
+\end{aligned}
+\end{equation}
+
+Therefore, plugging everything back in, we have the following.
+
+\begin{equation}
+\begin{aligned}
+	\ex{\chi^2_n} &= \sum_{i=1}^n \ex{X_i^2} \\
+	\ex{\chi^2_n} &= \sum_{i=1}^n 1 \\
+	\ex{\chi^2_n} &= n &&\quad\qedsymbol \\
+\end{aligned}
+\end{equation}
+
+\section{$\pr{\left|||X||_2^2 - n\right| \geq \delta n} \leq 2e^{-\delta^2n}$}
