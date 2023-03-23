@@ -1,0 +1,60 @@
+\chapter{String Comparison}
+
+\section{Algorithm}
+
+Assume that the method $parFilter$ is implemented with optimized the prefix sum algorithm which has $O(n)$ work and $O(\log n)$ span. Also assume that $zip(X, Y)$ zips and iterates over the elements of $X$ and $Y$  until the shorter one runs out of elements.
+
+\begin{algorithm}
+\caption{Comparing two strings $X$ and $Y$ in parallel}
+\begin{algorithmic}[1]
+
+\Procedure{CompareChar}{$x$: Character, $y$: Character}
+	\If{$x < y$}
+		\State return -1
+	\ElsIf{$x = y$}
+		\State return 0
+	\Else
+		\State return 1
+	\EndIf
+\EndProcedure
+
+\State  
+
+\Procedure{Compare}{$X$: String, $Y$: String}
+	\State $CR \gets zip(X, Y).parMap(\text{CompareChar})$
+	\State $F \gets CR.parFilter(\_ \neq 0)$
+	\State 
+	\If {$|F| \neq 0$}
+		\State return $F[0]$
+	\EndIf
+	\If {$|X| = |Y|$}
+		\State return 0
+	\ElsIf {$|X| < |Y|$}
+		\State return -1
+	\Else 
+		\State return 1
+	\EndIf
+\EndProcedure
+
+\end{algorithmic}
+\end{algorithm}
+
+\section{Analysis}
+
+\textbf{Claim.} This algorithm returns a value as follows.
+\[
+	Compare(X, Y) \begin{cases}
+		-1 & X < Y \\
+		0 & X = Y \\
+		1 & X > Y
+	\end{cases}
+\]
+and has $O(\min\{n, m\})$ work and $O(\log \min\{n, m\})$ span.
+
+\textit{Proof.} First, the algorithm compares each character of $X$ and $Y$ using a parallel map operation where the character comparison policy is shared with the policy for the entire string. Using fork-join parallelism, it is clear that this operation can be done in $O(\min\{n, m\})$ work and $O(\log\min\{n, m\})$ span. 
+
+Then, it creates a sequence of all non-zero comparison result by filtering them in parallel. With the assumption that $S.parFilter$ has $O(|S|)$ work and $O(\log |S|)$ span, this operation has $O(\min\{n, m\})$ work and $O(\log \min\{n, m\})$ span. 
+
+Finally, if there was any difference in the compare characters it returns the comparison result of the first differing letter. Since the policy for character-wise comparison is the same for the string, we have the expected output. Otherwise (the filtered sequence is empty), there must be no difference among the compared characters. Thus, it returns according to the policy we want based on the length of the string. 
+
+Since the operations in $Compare$ all have $O(\min\{n, m\})$ work and $O(\log \min\{n, m\})$ span, it is clear that $Compare$ has $O(\min\{n, m\})$ work and $O(\log \min\{n, m\})$ span. $\qedsymbol$

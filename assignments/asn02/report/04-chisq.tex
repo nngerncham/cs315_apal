@@ -1,39 +1,71 @@
 \chapter{$\chi^2$ with $n$ degrees of freedom}
 
-\begin{tcolorbox}[title=Disclaimer]
-	I forgot about $\chi^2$ distribution and got some help from \href{https://online.stat.psu.edu/stat414/book/export/html/784}{here}.
-\end{tcolorbox}
-
 \section{$\ex{\chi_n^2} = n$}
 
 Consider the following.
 
-\begin{equation}
+\begin{equation*}
 \begin{aligned}
-	\chi^2_n &= \sum_{i=1}^n X_i^2 \\
-	\iff \ex{\chi^2_n} &= \ex{\sum_{i=1}^n X_i^2} \\
-	\iff \ex{\chi^2_n} &= \sum_{i=1}^n \ex{X_i^2} && \text{by linearity of expectation}
+	&& \chi^2_n &= \sum_{i=1}^n X_i^2 \\
+	\iff && \ex{\chi^2_n} &= \ex{\sum_{i=1}^n X_i^2} \\
+	\iff && \ex{\chi^2_n} &= \sum_{i=1}^n \ex{X_i^2} && \text{by linearity of expectation}
 \end{aligned}
-\end{equation}
+\end{equation*}
 
 Since we want to show that $\ex{\chi^2_n} = n$, it suffices to show that $\ex{X_i^2} = 1$ for $i = 1, 2, \ldots, n$ in order to show that their sum is $n$. Consider the definition of variance.
 
-\begin{equation}
+\begin{equation*}
 \begin{aligned}
 	\var{X} &= \ex{X^2} - (\ex{X})^2 \\
 	1 &= \ex{X^2} - 0^2 \\
 	\ex{X^2} &= 1
 \end{aligned}
-\end{equation}
+\end{equation*}
 
 Therefore, plugging everything back in, we have the following.
 
-\begin{equation}
+\begin{equation*}
 \begin{aligned}
 	\ex{\chi^2_n} &= \sum_{i=1}^n \ex{X_i^2} \\
 	\ex{\chi^2_n} &= \sum_{i=1}^n 1 \\
 	\ex{\chi^2_n} &= n &&\quad\qedsymbol \\
 \end{aligned}
-\end{equation}
+\end{equation*}
 
 \section{$\pr{\left|||X||_2^2 - n\right| \geq \delta n} \leq 2e^{-\delta^2n}$}
+
+First, rewrite the LHS of the original expression in terms of mean (or expected value) $\mu$ then expand the norm computation.
+
+\begin{equation*}
+\begin{aligned}
+	&&\pr{\left|||X||_2^2 - n\right| \geq \delta n} \\
+	\iff && \pr{\left|||X||_2^2 - \mu\right| \geq \delta\mu} \\
+	\iff && \pr{\left|\left(\sqrt{\sum_{i=1}^n X_i^2}\right)^2 - \mu\right| \geq \delta\mu} \\
+	\iff && \pr{\left|\chi^2_n - \mu\right| \geq \delta\mu}
+\end{aligned}
+\end{equation*}
+
+To rid the absolute term from the inside of the probability, we split them into two cases.
+\begin{equation*}
+\begin{aligned}
+	&& \chi^2_n - \mu \geq \delta\mu \quad\text{and}\quad \chi^2_n - \mu \leq -\delta\mu \\
+	\iff && \chi^2_n \geq \mu(1 + \delta) \quad\text{and}\quad \chi^2_n \leq \mu(1 - \delta)
+\end{aligned}
+\end{equation*}
+
+Now, we can apply Hoeffding's Inequality to bound both probabilities then take the larger one so it holds when we take the absolute instead of either tail.
+
+For the upper-tail,
+\begin{equation*}
+\begin{aligned}
+	\pr{\chi^2_n \geq \mu(1 + \delta)} &\leq \exp\left\{-\frac{\delta^2\mu}{2 + \delta}\right\} \\
+	\pr{\chi^2_n \geq \mu(1 + \delta)} &\leq \exp\left\{-\frac{\delta^2\mu}{2 + \delta}\right\} \\
+\end{aligned}
+\end{equation*}
+
+For the lower-tail,
+\begin{equation*}
+\begin{aligned}
+	\pr{\chi^2_n \leq \mu(1 - \delta)} &\leq \exp\left\{-\frac{\delta^2\mu}{3}\right\} \\
+\end{aligned}
+\end{equation*}
