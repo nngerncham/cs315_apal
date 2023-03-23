@@ -1,5 +1,31 @@
 \chapter{Chernoff-Hoeffding with Bounds}
 
-\section{$\pr{X > \mu_H+ t}$ and $\pr{X < \mu_L - t}$}
+\begin{tcolorbox}
+\textbf{Theorem.} Let $X = X_1 + X_2 + \cdots + X_n$, where $X_i$'s are independently distributed in the range $[0, 1]$. If $\mu\ex{X}$, then
+\begin{itemize}
+	\item For all $t > 0$, \[ \pr{X > \mu + t}\quad\text{and}\quad \pr{X < \mu - t} \leq e^{-2t^2/n} \]
+	\item For all $\epsilon > 0$, \[ \pr{X > (1 + \epsilon)\mu} \leq \exp\left(- \frac{\epsilon^2}{3}\mu\right) \]
+		and \[ \pr{X < (1 - \epsilon)\mu} \leq \exp\left(-\frac{\epsilon^2}{2}\mu\right) \]
+\end{itemize}
+\end{tcolorbox}
 
-Since $\mu_H \geq \mu$, we have that $\mu_H = \mu + \epsilon\ \exists \epsilon \geq 0$.
+\section{Upper Bound $\mu_H$}
+
+Since $\mu_H \geq \mu$, we can rewrite $\mu_H = \mu + \Delta\quad\exists\ \Delta \geq 0$. Plug this into the probability and we have the following.
+\[ \pr{X > \mu_H + t} \iff \pr{X > \mu + \Delta + t} \]
+Let $T = t + \Delta$ for $t > 0$ and $\Delta \geq 0$. Thus, we have that $t \leq T$. Applying the theorem, we have
+\[ \pr{X > \mu + T} \leq \exp\left(- \frac{2T^2}{n}\right) \]
+
+Since $0 < t \leq T$, $\exp(-2t^2 / n) \geq \exp(-2T^2 / n)$. Therefore,
+\[ \pr{X > \mu_H + t} = \pr{X > \mu + T} \leq \exp\left(- \frac{2T^2}{n}\right) \leq \exp\left(-\frac{2t^2}{n}\right) \quad \qedsymbol \]
+
+
+\section{Lower Bound $\mu_L$}
+
+Since $\mu_L \leq \mu$, we can rewrite $\mu_H = \mu - \Delta\quad\exists\ \Delta \geq 0$. Plug this into the probability and we have the following.
+\[ \pr{X < \mu_L - t} \iff \pr{X < \mu - (t + \Delta)} \]
+Let $T = t + \Delta$ for $t > 0$ and $\Delta \geq 0$. Thus, we have that $t \geq T$. Applying the theorem, we have
+\[ \pr{X > \mu - T} \leq \exp\left(- \frac{2T^2}{n}\right) \]
+
+Since $0 < t \leq T$, $\exp(-2t^2 / n) \geq \exp(-2T^2 / n)$. Therefore,
+\[ \pr{X < \mu_L - t} = \pr{X < \mu - T} \leq \exp\left(- \frac{2T^2}{n}\right) \leq \exp\left(-\frac{2t^2}{n}\right) \quad\qedsymbol \]

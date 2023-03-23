@@ -1,8 +1,8 @@
 \chapter{$\chi^2$ with $n$ degrees of freedom}
 
-\section{$\ex{\chi_n^2} = n$}
+\section{Expected Value of $\chi^2$}
 
-Consider the following.
+To show that $\ex{X_n^2} = n$, consider the following.
 
 \begin{equation*}
 \begin{aligned}
@@ -32,9 +32,9 @@ Therefore, plugging everything back in, we have the following.
 \end{aligned}
 \end{equation*}
 
-\section{$\pr{\left|||X||_2^2 - n\right| \geq \delta n} \leq 2e^{-\delta^2n}$}
+\section{Chernoff-Hoeffding on $\chi^2$}
 
-First, rewrite the LHS of the original expression in terms of mean (or expected value) $\mu$ then expand the norm computation.
+To show that $\pr{\left|||X||_2^2 - n\right| \geq \delta n} \leq 2e^{-\delta^2n}$, first, rewrite the LHS of the original expression in terms of mean (or expected value) $\mu$ then expand the norm computation.
 
 \begin{equation*}
 \begin{aligned}
