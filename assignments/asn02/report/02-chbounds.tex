@@ -15,10 +15,28 @@ Since $\mu_H \geq \mu$, we can rewrite $\mu_H = \mu + \Delta\quad\exists\ \Delta
 \[ \pr{X > \mu_H + t} \iff \pr{X > \mu + \Delta + t} \]
 Let $T = t + \Delta$ for $t > 0$ and $\Delta \geq 0$. Thus, we have that $t \leq T$. Applying the theorem, we have
 \[ \pr{X > \mu + T} \leq \exp\left(- \frac{2T^2}{n}\right) \]
-
 Since $0 < t \leq T$, $\exp(-2t^2 / n) \geq \exp(-2T^2 / n)$. Therefore,
 \[ \pr{X > \mu_H + t} = \pr{X > \mu + T} \leq \exp\left(- \frac{2T^2}{n}\right) \leq \exp\left(-\frac{2t^2}{n}\right) \quad \qedsymbol \]
 
+Now, to show that $\pr{X > (1 + \epsilon)\mu_H} \leq \exp\left(- \frac{\epsilon^2}{3}\mu_H\right)$, we first rewrite this in terms of $\mu$.
+\[ \pr{X > (1 + \epsilon)\mu_H} \iff \pr{X > (1 + \epsilon)\mu_H\cdot\frac{\mu}{\mu}} \iff \pr{X > (1 + \epsilon)\mu\cdot\frac{\mu_H}{\mu}} \]
+Let $\rho = \mu_H / \mu$, we have the following.
+\begin{equation*}
+\begin{aligned}
+	\pr{X > (1 + \epsilon)\mu\rho} &\iff \pr{X > (1 - 1 + \rho + \rho\epsilon)\mu} \\
+								   &\leq \exp\left(-\frac{(\rho + \rho\epsilon - 1)^2}{3}\mu\right) \quad\text{by applying the theorem} \\
+								   &\leq \exp\left(-\frac{\rho^2\epsilon^2 + \rho^2 + 2\rho^2\epsilon - 2\rho\epsilon + 1}{3}\mu\right)
+\end{aligned}
+\end{equation*}
+Since $\mu_H\geq\mu \implies \rho \geq 1$, $\rho^2 \geq 0$ and $2\rho^2\epsilon - 2\rho\epsilon \geq 0$. So, we have the following.
+\begin{equation*}
+\begin{aligned}
+	\exp\left(-\frac{\rho^2\epsilon^2 + \rho^2 + 2\rho^2\epsilon - 2\rho\epsilon + 1}{3}\mu\right)
+		&\leq \exp\left(-\frac{\rho^2\epsilon^2}{3}\mu\right) \\
+		&\leq \exp\left(-\frac{\rho\epsilon^2}{3}\mu\right) \\
+		&= \exp\left(-\frac{\epsilon^2}{3}\cdot\frac{\mu_H}{\mu}\mu\right) = \exp\left(-\frac{\epsilon^2}{3}\mu_H\right) \quad \qedsymbol
+\end{aligned}
+\end{equation*}
 
 \section{Lower Bound $\mu_L$}
 
@@ -29,3 +47,18 @@ Let $T = t + \Delta$ for $t > 0$ and $\Delta \geq 0$. Thus, we have that $t \geq
 
 Since $0 < t \leq T$, $\exp(-2t^2 / n) \geq \exp(-2T^2 / n)$. Therefore,
 \[ \pr{X < \mu_L - t} = \pr{X < \mu - T} \leq \exp\left(- \frac{2T^2}{n}\right) \leq \exp\left(-\frac{2t^2}{n}\right) \quad\qedsymbol \]
+
+Now, to show that $\pr{X > (1 - \epsilon)\mu_L} \leq \exp\left(- \frac{\epsilon^2}{2}\mu_L\right)$, we first rewrite this in terms of $\mu$.
+\[ \pr{X > (1 - \epsilon)\mu_L} \iff \pr{X > (1 + \epsilon)\mu_L\cdot\frac{\mu}{\mu}} \iff \pr{X > (1 + \epsilon)\mu\cdot\frac{\mu_L}{\mu}} \]
+Let $\rho = \mu_L / \mu$, we have the following.
+\begin{equation*}
+\begin{aligned}
+	\pr{X > (1 + \epsilon)\mu\rho} &\iff \pr{X > (1 - 1 + \rho + \rho\epsilon)\mu} \\
+								   &\leq \exp\left(-\frac{(\rho + \rho\epsilon - 1)^2}{2}\mu\right) \quad\text{by applying the theorem} \\
+								   &\leq \exp\left(-\frac{\rho^2\epsilon^2 + \rho^2 + 2\rho^2\epsilon - 2\rho\epsilon + 1}{2}\mu\right)\\
+								   &\leq \exp\left(-\frac{\rho^2\epsilon^2 + \rho^2 + 2\rho^2\epsilon - 2\rho\epsilon + 1}{2}\mu\right) \\
+								   &\leq \exp\left(-\frac{\rho^2\epsilon^2}{2}\mu\right) \\
+								   &\leq \exp\left(-\frac{\rho\epsilon^2}{2}\mu\right) \\
+								   &= \exp\left(-\frac{\epsilon^2}{2}\cdot\frac{\mu_L}{\mu}\mu\right) = \exp\left(-\frac{\epsilon^2}{2}\mu_L\right) \quad \qedsymbol
+\end{aligned}
+\end{equation*}
