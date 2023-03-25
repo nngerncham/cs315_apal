@@ -1,1 +1,17 @@
 \chapter{Simple Samplers}
+
+Consider $\pr{|\hat{c} - c| \leq \epsilon} \geq 1 - \delta$. We can take its complement and multiply $N$ to both sides in the probability obtain the following.
+\begin{equation*}
+\begin{aligned}
+	\pr{|\hat{c} - c| \leq \epsilon} \geq 1 - \delta &\iff \pr{|N\hat{c} - Nc| > N\epsilon} \leq \delta
+\end{aligned}
+\end{equation*}
+Applying Chernoff's bound (\ref{eqn:general-chernoff}), we know that the probability in the LHS is bounded by $2\exp(-2(\epsilon N)^2 / N)$. Let $\delta$ be the upper bound of Chernoff's bound, we can solve for $N$ to find the minimum $N$ to achieve the sharpness we want.
+\begin{equation*}
+\begin{aligned}
+	\delta &\geq 2\exp\left(-2\epsilon^2N\right) \\
+	\frac{2}{\delta} &\leq \exp\left(2\epsilon^2N\right) \\
+	\ln\left(\frac{2}{\delta}\right) &\leq 2\epsilon^2N \\
+	N &\geq \frac{2}{\epsilon^2}\ln\left(\frac{2}{\delta}\right) \quad \qedsymbol
+\end{aligned}
+\end{equation*}

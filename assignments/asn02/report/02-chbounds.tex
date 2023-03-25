@@ -1,11 +1,20 @@
 \chapter{Chernoff-Hoeffding with Bounds}
 
 \begin{tcolorbox}
-\textbf{Theorem.} Let $X = X_1 + X_2 + \cdots + X_n$, where $X_i$'s are independently distributed in the range $[0, 1]$. If $\mu\ex{X}$, then
+	\textbf{Theorem.} Let $X = X_1 + X_2 + \cdots + X_n$, where $X_i$'s are independently distributed in the range $[0, 1]$. If $\mu\ex{X}$, then
 \begin{itemize}
-	\item For all $t > 0$, \[ \pr{X > \mu + t}\quad\text{and}\quad \pr{X < \mu - t} \leq e^{-2t^2/n} \]
-	\item For all $\epsilon > 0$, \[ \pr{X > (1 + \epsilon)\mu} \leq \exp\left(- \frac{\epsilon^2}{3}\mu\right) \]
-		and \[ \pr{X < (1 - \epsilon)\mu} \leq \exp\left(-\frac{\epsilon^2}{2}\mu\right) \]
+	\item For all $t > 0$ (General bound), 
+		\begin{equation}\label{eqn:general-chernoff}
+			\pr{X > \mu + t}\quad\text{and}\quad \pr{X < \mu - t} \leq e^{-2t^2/n}
+		\end{equation}
+	\item For all $\epsilon > 0$, 
+		\begin{equation}\label{eqn:small-chernoff-upper}
+			\pr{X > (1 + \epsilon)\mu} \leq \exp\left(- \frac{\epsilon^2}{3}\mu\right)
+		\end{equation}
+		and 
+		\begin{equation}\label{eqn:small-chernoff-lower}
+			\pr{X < (1 - \epsilon)\mu} \leq \exp\left(-\frac{\epsilon^2}{2}\mu\right)
+		\end{equation}
 \end{itemize}
 \end{tcolorbox}
 
