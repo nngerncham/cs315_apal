@@ -1,0 +1,43 @@
+\chapter{Dual Binary Search and Better Merge Sort}
+
+Consider the following dual search algorithm.
+
+\begin{algorithm}
+\caption{The $kth$ function and its helper (slightly modified)}
+\begin{algorithmic}[1]
+
+\Procedure{kthHelp}{$A, a_o, B, b_o, k$}
+	\State \textbf{if} $(|A| + |B| = 0)$ \textbf{then return} $(a_o, b_o)$
+	\State \textbf{else if} $(|A| = 0)$ \textbf{then return} $(a_o, b_o + k)$
+	\State \textbf{else if} $(|B| = 0)$ \textbf{then return} $(a_o + k, b_o)$
+	\State 
+	\State $m_a \gets |A| / 2$
+	\State $m_b \gets |B| / 2$
+	\Switch{$(A[m_a ]< B[m_b], k > m_a + m_b)$}
+		\Case{$(T, T)$}
+			\State \textbf{return} $kthHelp(A[m_a + 1:|A|], a_o + m_a + 1, B, b_o, k - m_a - 1)$
+		\EndCase
+		\Case{$(T, F)$}
+			\State \textbf{return} $kthHelp(A, a_o, B[0:m_b,] b_o, k)$
+		\EndCase
+		\Case{$(F, T)$}
+			\State \textbf{return} $kthHelp(A, a_o, B[m_b + 1:|B|,] b_o + m_b + 1, k-m_b, 1)$
+		\EndCase
+		\Case{$(F, F)$}
+			\State \textbf{return} $kthHelp(A[0:m_a], a_o, B, b_o, k)$
+		\EndCase
+	\EndSwitch
+\EndProcedure
+\State
+\Procedure{kth}{$A, B, k$}
+	\State \textbf{return} $kthHelp(A, 0, B, 0, k)$
+\EndProcedure
+
+\end{algorithmic}
+\end{algorithm}
+
+\section{Work and Span of $kth$}
+
+Since $kth$ simply returns $kthHelp$, it suffices to analyze the work and span of $kthHelp$ to show the cost and span of $kth$.
+
+First, consider the base cases of $kthHelp$. It is clear that these take $O(1)$ work and span since they simply do some simple comparison and arithmetic before returning. Now, consider the recursive cases of $kthHelp$. In every case, it either splits $A$ or $B$ in half before making a recursive call on the split sequence. Thus, it is clear that cases where $A$ and $B$ is split in half is called $O(\log |A|)$ and $O(\log |B|)$ times respectively and they are not run in parallel. Therefore, the cost and span of $kthHelp$ is $O(\log |A| + \log |B|)$. $\qedsymbol$

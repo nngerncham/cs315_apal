@@ -58,6 +58,16 @@
 \usepackage{amsmath, amsfonts, amsthm, amssymb}
 \usepackage{algorithmicx, mathtools, algorithm, algpseudocode}
 
+% New definitions
+\algnewcommand\algorithmicswitch{\textbf{switch}}
+\algnewcommand\algorithmiccase{\textbf{case}}
+
+% New "environments"
+\algdef{SE}[SWITCH]{Switch}{EndSwitch}[1]{\algorithmicswitch\ #1\ \algorithmicdo}{\algorithmicend\ \algorithmicswitch}%
+\algdef{SE}[CASE]{Case}{EndCase}[1]{\algorithmiccase\ #1}{\algorithmicend\ \algorithmiccase}%
+\algtext*{EndSwitch}%
+\algtext*{EndCase}%
+
 % probability-related commands
 \newcommand{\ex}[1]{\mathbf{E}\left[#1\right]}
 \newcommand{\pr}[1]{\mathbf{Pr}\left[#1\right]}
