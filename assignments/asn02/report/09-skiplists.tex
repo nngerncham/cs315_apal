@@ -1,1 +1,14 @@
 \chapter{Skip List Space Bounds}
+
+\section{Expected number of keys at level $t$}
+
+\textbf{Claim.} \[ \ex{n_t} \leq \frac{n}{2^t}\ \exists\ t\geq 0\in\mathbb Z \]
+
+\textit{Proof.} Since, if a key shows up at some level, it has a probability of showing up in the next of $1/2$. So, we have that the probability of a key showing up at level $t$ is $1/2^t$. Since we have $n$ keys, the expected number of keys showing up at level $t$ is simply the following.
+\[ \ex{n_t} = \sum_{i=1}^n \left(\frac{1}{2^t}\right)\cdot 1 + \left(1 - \frac{1}{2^t}\right)\cdot 0 = \frac{n}{2^t} \leq \frac{n}{2^t}\quad \qedsymbol \]
+
+\section{Bounding the number of keys at level $k$}
+
+\textbf{Claim.} For $k \leq \log_2\left(\frac{n}{\log_2 n}\right)$, 
+\[ \pr{n_k \geq (1 + \lambda)\frac{n}{2^t}} \leq \frac{1}{n^c} \]
+where $c = \Theta(\lambda^2)$.
