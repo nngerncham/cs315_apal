@@ -28,7 +28,7 @@ Therefore, plugging everything back in, we have the following.
 \begin{aligned}
 	\ex{\chi^2_n} &= \sum_{i=1}^n \ex{X_i^2} \\
 	\ex{\chi^2_n} &= \sum_{i=1}^n 1 \\
-	\ex{\chi^2_n} &= n &&\quad\qedsymbol \\
+	\ex{\chi^2_n} &= n \quad\qedsymbol \\
 \end{aligned}
 \end{equation*}
 
@@ -45,27 +45,22 @@ To show that $\pr{\left|||X||_2^2 - n\right| \geq \delta n} \leq 2e^{-\delta^2n}
 \end{aligned}
 \end{equation*}
 
-To rid the absolute term from the inside of the probability, we split them into two cases.
+Now, we can apply Chernoff's bound (\ref{eqn:general-chernoff}) to get the final results. First, let us convert the bound into absolute form so we can apply it directly on what we have above.
 \begin{equation*}
 \begin{aligned}
-	&& \chi^2_n - \mu \geq \delta\mu \quad\text{and}\quad \chi^2_n - \mu \leq -\delta\mu \\
-	\iff && \chi^2_n \geq \mu(1 + \delta) \quad\text{and}\quad \chi^2_n \leq \mu(1 - \delta)
+	&& \pr{X > \mu + t} + \pr{X < \mu - t} &\leq 2\exp\left(-\frac{2t^2}{n}\right) \\
+	\iff && \pr{X - \mu > t} + \pr{X - \mu < - t} &\leq 2\exp\left(-\frac{2t^2}{n}\right) \\
+	\iff && \pr{X - \mu > t} + \pr{- (X - \mu) > t} &\leq 2\exp\left(-\frac{2t^2}{n}\right) \\
+	\iff && \pr{|X - \mu| > t} &\leq 2\exp\left(-\frac{2t^2}{n}\right)
 \end{aligned}
 \end{equation*}
-
-Now, we can apply Hoeffding's Inequality to bound both probabilities then take the larger one so it holds when we take the absolute instead of either tail.
-
-For the upper-tail,
+Finally, applying the bound directly on $\pr{\left|\chi^2_n - \mu\right| \geq \delta\mu}$, we have the following.
 \begin{equation*}
 \begin{aligned}
-	\pr{\chi^2_n \geq \mu(1 + \delta)} &\leq \exp\left\{-\frac{\delta^2\mu}{2 + \delta}\right\} \\
-	\pr{\chi^2_n \geq \mu(1 + \delta)} &\leq \exp\left\{-\frac{\delta^2\mu}{2 + \delta}\right\} \\
-\end{aligned}
-\end{equation*}
-
-For the lower-tail,
-\begin{equation*}
-\begin{aligned}
-	\pr{\chi^2_n \leq \mu(1 - \delta)} &\leq \exp\left\{-\frac{\delta^2\mu}{3}\right\} \\
+	\pr{\left|\chi^2_n - \mu\right| \geq \delta\mu}
+		&\approx \pr{\left|\chi^2_n - \mu\right| > \delta\mu} \\
+		&\leq 2\exp\left(-\frac{2(\delta\mu)^2}{n}\right) \\
+		&= 2\exp\left(-\frac{2(\delta n)^2}{n}\right) \\
+		&= 2e^{-2\delta^2n} \quad \qedsymbol
 \end{aligned}
 \end{equation*}
