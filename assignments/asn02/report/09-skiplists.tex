@@ -11,4 +11,25 @@
 
 \textbf{Claim.} For $k \leq \log_2\left(\frac{n}{\log_2 n}\right)$, 
 \[ \pr{n_k \geq (1 + \lambda)\frac{n}{2^t}} \leq \frac{1}{n^c} \]
-where $c = \Theta(\lambda^2)$.
+where $c = O(\lambda^2)$. (Yes, this bound is loosened a bit so I don't go insane.)
+
+\textit{Proof.} First, let us change the base of $k$ into something more \textit{civilized}.
+\[ k \leq \ln\left(\frac{n}{\ln n}\right) \iff k \leq \frac{\log_2(n/\ln n)}{\log_2 e} \]
+Then, we can use this to simplify $\mu = n/2^k$ into
+\begin{equation*}
+\begin{aligned}
+	\frac{n}{2^k} &= \frac{n}{2^{\frac{\log_2(n/\ln n)}{\log_2 e}}} \\
+				  &= \frac{n}{(n/\ln n)^{1/\log_2 e}} \\
+				  &\geq \ln n
+\end{aligned}
+\end{equation*}
+Plugging this into the probability, we have 
+\begin{equation*}
+\begin{aligned}
+	\pr{n_k \geq (1 + \lambda)\frac{n}{2^k}} &\iff \pr{n_k \geq (1 + \lambda) \ln n} \\
+											 &\leq \exp\left(- \frac{\lambda^2 \ln n}{2 + \lambda}\right) \\
+											 &\leq \frac{1}{n^{\lambda^2 / (2 + \lambda)}}
+\end{aligned}
+\end{equation*}
+
+Therefore, \[ \pr{n_k \geq (1 + \lambda)\frac{n}{2^k}} \leq \frac{1}{n^{c}} \] where $c = \lambda^2 / (2 + \lambda) \in O(\lambda^2)$. $\qedsymbol$
