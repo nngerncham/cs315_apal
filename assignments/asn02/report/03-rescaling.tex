@@ -1,1 +1,32 @@
 \chapter{Rescaling Trick}
+
+Suppose that we are given data points $X_1, X_2, \ldots, X_n$ that are in range $[a, b]$. We want to normalize this down to the range $[0, 1]$ in order to apply the Chernoff-Hoeffding bounds. Thus, we define $Y_i$ as the normalized $X_i$'s with min-max scaling. Specifically,
+\[ Y_i = \frac{X_i - a}{b - a} \]
+
+Let $X = \sum_{i=1}^n X_i$, $\mu = \ex{X}$, and $Y = \sum_{i=1}^n Y_i$. Let us find the expected value of $Y$, $\hat{\mu}$.
+\[
+\begin{aligned}
+	\hat{\mu} &= \ex{Y} = \ex{\sum_{i=1}^n Y_i} \\
+	\hat{\mu} &= \ex{\sum_{i=1}^n \frac{X_i - a}{b-a}} \\
+	\hat{\mu} &= \ex{\sum_{i=1}^n \frac{X_i}{b-a} - \sum_{i=1}^n \frac{a}{b-a}} \\
+	\hat{\mu} &= \ex{\frac{X - na}{b-a}} \\
+	\hat{\mu} &= \frac{\ex{X} - \ex{na}}{b-a} \\
+	\hat{\mu} &= \frac{\mu - na}{b - a}
+\end{aligned}
+\]
+
+Now, we can directly apply the Chernoff-Hoeffding bound on $Y$ and $\hat{\mu}$ then transform it back for $X$ and $\mu$.
+\[
+\begin{aligned}
+	\pr{Y > (1 + \epsilon)\hat{\mu}} &\leq \exp\left(-\frac{\epsilon^2}{3}\hat{\mu}\right) = \exp\left(-\frac{\epsilon^2(\mu-na)}{3(b-a)}\right) \\
+	\pr{Y < (1 - \epsilon)\hat{\mu}} &\leq \exp\left(-\frac{\epsilon^2}{2}\hat{\mu}\right) = \exp\left(-\frac{\epsilon^2(\mu-na)}{2(b-a)}\right)
+\end{aligned}
+\]
+
+Therefore, the general Chernoff-Hoeffding bounds are
+\[
+\begin{aligned}
+	\pr{X > (1 + \epsilon)\mu} &\leq \exp\left(-\frac{\epsilon^2(\mu-na)}{3(b-a)}\right) \\
+	\pr{X < (1 - \epsilon)\mu} &\leq \exp\left(-\frac{\epsilon^2(\mu-na)}{2(b-a)}\right) \quad \qedsymbol
+\end{aligned}
+\]
