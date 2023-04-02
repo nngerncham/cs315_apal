@@ -41,3 +41,26 @@ Consider the following dual search algorithm.
 Since $kth$ simply returns $kthHelp$, it suffices to analyze the work and span of $kthHelp$ to show the cost and span of $kth$.
 
 First, consider the base cases of $kthHelp$. It is clear that these take $O(1)$ work and span since they simply do some simple comparison and arithmetic before returning. Now, consider the recursive cases of $kthHelp$. In every case, it either splits $A$ or $B$ in half before making a recursive call on the split sequence. Thus, it is clear that cases where $A$ and $B$ is split in half is called $O(\log |A|)$ and $O(\log |B|)$ times respectively and they are not run in parallel. Therefore, the cost and span of $kthHelp$ is $O(\log |A| + \log |B|)$. $\qedsymbol$
+
+\section{Improved Merge}
+
+\begin{algorithm}
+\caption{Improved Merge}
+\begin{algorithmic}[1]
+
+\Procedure{merge}{$A, B$}
+	\State $n \gets |A| + |B|$
+	\State $B \gets (0..\sqrt{n})$.parMap($\ j \implies \{$
+		\State \qquad $(I_A, I_B) \gets kth(A, B, j\sqrt{n})$
+		\State \qquad $(E_A, E_B) \gets kth(A, B, (j+1)\sqrt{n})$
+		\State \qquad $merge(A[I_A:E_A], B[I_B:E_B])$
+	\State $\})$
+	\State \textbf{return} $concatenate(B)$
+\EndProcedure
+
+\end{algorithmic}
+\end{algorithm}
+
+\section{Work and Span of the Improved Merge}
+
+
