@@ -1,1 +1,14 @@
 \chapter{Equivalent Formulation}
+
+(The main idea for this solution is highly inspired by Archer's.) Consider the primal formulation for SVM that is run on data sets $X = \{x_1, x_2, \ldots, x_n\}$ and labels $Y = \{y_1, y_2, \ldots, y_n\}$.
+\[
+\begin{aligned}
+    \max && \gamma := \min_{x_i \in X} |\langle w, x_i \rangle| & \\
+    s.t. && y_i(\langle w, x_i \rangle + b) &> 0 \text{ for $i = 1, 2, 3, ..., n$}
+\end{aligned}
+\]
+
+Since $y_i(\langle w, x_i \rangle + b)$ is strictly greater than 0, we let $\epsilon > 0$ to be its lower bound. Consequently, it is also the lower bound of the margin.  Now, the constraint becomes
+\[ y_i(\langle w, x_i \rangle + b) \geq \epsilon \iff \frac{y_i}{\epsilon}(||w||\cdot||x_i||\cos\theta + b) \geq 1 \]
+By minimizing $||w||$ and consequently $||w||^2$, we must increase $\epsilon$ so that they balance out and their product remains $\geq 1$.
+Since $\epsilon$ is the lower bound of the margins and the it changes inversely with $||w||$, minimizing $||w||$ is equivalent of maximizing the margin which is the same as the primal problem. $\qedsymbol$
