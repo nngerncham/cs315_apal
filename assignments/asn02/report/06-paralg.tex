@@ -49,18 +49,51 @@ First, consider the base cases of $kthHelp$. It is clear that these take $O(1)$ 
 \begin{algorithmic}[1]
 
 \Procedure{merge}{$A, B$}
+	\State \textbf{if} |A| = |B| = 0 \textbf{then return}
+	\State \textbf{else if} |A| = 0 \textbf{then return} $B$
+	\State \textbf{else if} |B| = 0 \textbf{then return} $A$
 	\State $n \gets |A| + |B|$
 	\State $B \gets (0..\sqrt{n})$.parMap($\ j \implies \{$
 		\State \qquad $(I_A, I_B) \gets kth(A, B, j\sqrt{n})$
 		\State \qquad $(E_A, E_B) \gets kth(A, B, (j+1)\sqrt{n})$
 		\State \qquad $merge(A[I_A:E_A], B[I_B:E_B])$
 	\State $\})$
-	\State \textbf{return} $concatenate(B)$
+	\State \textbf{return} $parConcat(B)$
 \EndProcedure
 
 \end{algorithmic}
 \end{algorithm}
 
+\section{Work and Span Recurrence of the Improved Merge}
+
+Observe that in the parallel map call, each map makes two calls to $kth$, taking $O(\log|A| + \log|B|)$ time each. Then, it calls a $merge$ on the slices of $A$ and $B$ such that that they are combined into a $\sqrt{n}$ chunk of the returning array. This is because the first and second call finds the index of $A$ and $B$ to create the first $j\sqrt{n}$ elements and $(j+1)\sqrt{n}$ elements respectively, resulting in slices from the two that are combined into a $|j\sqrt{n} - (j+1)\sqrt{n}| = \sqrt{n}$-element slice of the merged array. Then, the slices of $A$ and $B$ are merged and saved in a buffer $B$. Finally, it concatenates $B$ into a single array and returns. (The last step can be completely ignored if we were to write this in a non-functional style \textit{but we are too cool for that}.) Therefore, we can conclude that the work and span of the improved $merge$ is as follows.
+\[
+\begin{aligned}
+	W(n) &= \sqrt{n}\underbrace{(W(\sqrt{n}) + O(\log|A| + \log|B|))}_\text{Each map call} + \underbrace{O(n)}_\text{Concatenation} \\
+		 &= \sqrt{n}W(\sqrt n) + \sqrt nO(\log(|A||B|)) + O(n) \\
+	S(n) &= \underbrace{S(\sqrt{n}) + O(\log|A| + \log|B|)}_\text{Each map call} + \underbrace{O(\log n)}_\text{Concatenation}
+\end{aligned}
+\]
+
+\section{Solving a Recurrence}
+
+(Please prepare for some 3am copium-fueled math.)
+
+\textbf{Claim.} \[ W(n) = \sqrt nW(\sqrt n) + n^{1-\beta} \to \Theta(n)\ \text{for $\beta = 1/2$} \]
+
+\textit{Proof.} First, let us expand and substitute this recurrence.
+\[
+\begin{aligned}
+	W(n) &= n^{1/2}W(n^{1/2}) + n^{1 - 1/2} \\
+		 &= n^{1/2}\left(n^{1/4}W(n^{1/4}) + n^{1/4}\right) + n^{1/2} \\
+		 &= n^{1/2 + 1/4}\left(n^{1/8}W(n^{1/8}) + n^{1/8}\right) + 2n^{1/2}
+\end{aligned}
+\]
+This is repeated $\sqrt n$ times before reaching the base case since the size of the input to the recurrence is divided into $\sqrt n$ slices so it must be divided $\sqrt n$ times.
+
+From the expansion, we can see that $W(n)$ can be written as follows.
+\[ W(n) = \underbrace{\Pi_{i=1}^{\log_2(\sqrt n)}n^{1/2^i}}_\text{$< n$ since $\Pi_{i=1}^\infty n^{1/2^i} = n^1$} + \underbrace{\sqrt n \cdot \sqrt n}_n < 2n \in \Theta(n) \quad \qedsymbol \]
+
 \section{Work and Span of the Improved Merge}
 
-
+At this point, I've given up so just take the day off and have fun, to whoever is grading this problem :)
